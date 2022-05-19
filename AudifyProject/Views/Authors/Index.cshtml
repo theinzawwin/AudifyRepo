@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AudifyProject.Models.Author>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content-header">
+    <h1>Author List</h1>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Author List</h3>
+            <a class="btn btn-outline-primary pull-right" asp-action="Create">Create New</a>
+        </div>
+        <table class="table table-bordered table-hover display nowrap margin-top-10 table-responsive">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        Photo
+                    </th>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.Remark)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ 
+                    int i = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <img src="@item.Profile" width="80" height="80" />
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remark)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                            @{
+                                if (item.Status == true)
+                                {
+                                    <a class="btn-outline-success">Active</a>
+                                }
+                                else
+                                {
+                                    <a class="btn-outline-danger">Deactive</a>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                                    i++;
+                     }
+            </tbody>
+        </table>
+    </div>
+
+</section>

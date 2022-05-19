@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IRD</title>
+    <link rel="stylesheet" href="~/mini/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/mini/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/mini/css/master_style.css" />
+    <link rel="stylesheet" href="~/mini/css/fullcalendar.min.css" />
+    <link rel="stylesheet" href="~/mini/css/_all-skins.css" />
+</head>
+<body class="sidebar-mini wysihtml5-supported skin-green fixed" style="height: auto; min-height: 100%;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <header class="main-header">
+          
+        </header>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" style="min-height: 1165px; margin:0;">
+                @RenderBody()
+            </div>
+
+</div>
+
+    <script src="~/mini/js/jquery.min.js"></script>
+    <script src="~/mini/js/jquery.dataTables.min.js"></script>
+    <script src="~/mini/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/mini/js/popper.min.js"></script>
+    <script src="~/mini/js/bootstrap.min.js"></script>
+    <script src="~/mini/js/jquery.slimscroll.min.js"></script>
+    <script src="~/mini/js/fastclick.js"></script>
+    <script src="~/mini/js/template.js"></script>
+    <script src="~/mini/js/demo.js"></script>
+    <script src="~/mini/js/moment.js"></script>
+    <script src="~/mini/js/fullcalendar.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

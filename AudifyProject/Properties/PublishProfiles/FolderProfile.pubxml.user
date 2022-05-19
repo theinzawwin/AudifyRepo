@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\TrustCore\Audify\AdifyProject_Prod</_PublishTargetUrl>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbc4XTqHkhUSabqDkjmYi9AAAAAACAAAAAAAQZgAAAAEAACAAAADQ76diAaBhz/yjTAFzzA4wRuipu905BFfVO1jDp1TZFAAAAAAOgAAAAAIAACAAAACBRln9mHvkD/QQ4/zNzbpB9u6YM3/npanlKLh1TTnqMiAAAABVobw5Y3J/GIFK+wyEDLPYFbatPwxekXLKYYhNGczmb0AAAAA5o6COImUeQ6SjUz2QVy8DNSU7RnE6o0WzErDode2X6WdsX+p5eQP++EUHMvxPL3S0A4YI9rIWkJ9Nv0y5a2ZT</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="Prod_MysqlConnection">
+      <Value>server=mysql8001.site4now.net%3buser id=a85e3c_audify%3bpassword=Audify%402022%3bport=3306%3bdatabase=db_a85e3c_audify%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

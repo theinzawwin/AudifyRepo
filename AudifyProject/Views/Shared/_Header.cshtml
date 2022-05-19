@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+    <style>
+        .userName > .nav-link {
+            color: #ffffff !important;
+        }
+
+            .userName > .nav-link:hover {
+                background-color: #00b4d6 !important;
+            }
+    </style>
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Audify</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+           
+        </a>
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <!-- Messages: style can be found in dropdown.less-->
+                
+                <!-- Notifications: style can be found in dropdown.less -->
+                
+                <!-- Tasks: style can be found in dropdown.less -->
+               
+                <!-- Control Sidebar Toggle Button -->
+                
+               
+                <li class="navbar-custom-menu" style="margin-right:5px;">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Account/Login", new { area = "Identity" })" method="post" id="logoutForm">
+
+                            <ul class="header-megamenu nav">
+
+                                <li class="btn-group nav-item userName">
+                                    <div class="nav-link rounded">
+                                        @UserManager.GetUserName(User)
+                                    </div>
+                                </li>
+                                <li class="btn-group nav-item">
+                                    <button type="submit" class="nav-link rounded">
+                                        <i class="nav-link-icon mdi mdi-view-dashboard text-white mx-2"> </i>
+                                        Logout
+                                        <i class="fa fa-power-off"></i>
+                                    </button>
+
+                                </li>
+                            </ul>
+                        </form>
+                    }
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar" style="height: auto;">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="image">
+                <img src="~/images/audifylogo.jpg" alt="Audify" width="80" height="80">
+            </div>
+
+        </div>
+
+
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu tree" data-widget="tree">
+            <li class="nav-item">
+
+                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa fa-dashboard"></i><span>Category</span></a>
+            </li>
+            <li class="nav-item">
+
+                <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Index"><i class="fa fa-dashboard"></i><span>Authors</span></a>
+            </li>
+            <li class="nav-item">
+
+                <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Index"><i class="fa fa-newspaper-o"></i><span>Audio</span></a>
+            </li>
+
+            @if (User.IsInRole("Management"))
+            {
+
+
+            }
+            @if (User.IsInRole("Manager"))
+            {
+
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-dashboard"></i><span>ပင်မ</span></a>
+                </li>
+
+                <li class="nav-item" id="transactionList">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="BranchManager" asp-action="Index">ဝင်ငွေကြေညာလွှာများ</a>
+                </li>
+            }
+            @if (User.IsInRole("TaxPayer"))
+            {
+
+            }
+
+
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+    <div class="sidebar-footer">
+        <!-- item-->
+          <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog fa-spin"></i></a>
+            <!-- item-->
+            <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
+        
+        <!-- item-->
+       
+    </div>
+</aside>

@@ -1,0 +1,67 @@
+﻿@model AudifyProject.ViewModels.AuthorFormViewModel
+
+@{
+    ViewData["Title"] = "Create Author";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <h1>Create New Author</h1>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">New Author</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <p class="text-danger">
+                            @ViewData["ErrorMessage"]
+                        </p>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="File" class="control-label">Profile</label>
+                            <input asp-for="File" class="form-control" />
+                            <span asp-validation-for="File" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label">Summary</label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Remark" class="control-label"></label>
+                            <input asp-for="Remark" class="form-control" />
+                            <span asp-validation-for="Remark" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+            </div>
+            </div>
+
+            <div>
+                <a class="btn btn-primary pull-right" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

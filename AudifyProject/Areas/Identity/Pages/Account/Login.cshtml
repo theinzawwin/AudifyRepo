@@ -1,0 +1,66 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href="" class="text-primary"><b>Audify Management System</b></a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">SignIn</p>
+
+        <form id="account" method="post">
+
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group has-feedback">
+                <input asp-for="Input.Email" class="form-control" placeholder="Email">
+                <span class="ion ion-email form-control-feedback"></span>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group  has-feedback">
+
+                <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                <span class="ion ion-locked form-control-feedback"></span>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+
+                <!-- /.col -->
+                <!-- /.col -->
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-info btn-block btn-flat margin-top-10">SIGN IN</button>
+                </div>
+                
+                <!-- /.col -->
+            </div>
+            <div class="form-group mt-2">
+                @*  <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                *@
+
+            </div>
+        </form>
+
+
+        <!-- /.social-auth-links -->
+        @*  <div class="margin-top-30 text-center">
+                <p><a asp-area="" asp-controller="TaxPayerInfo" asp-action="Register">အခွန်ထမ်း Account ဆောက်ရန်</a></p>
+            </div>
+        *@
+    </div>
+    <!-- /.login-box-body -->
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
