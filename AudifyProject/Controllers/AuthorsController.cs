@@ -28,7 +28,8 @@ namespace AudifyProject.Controllers
         // GET: Authors
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Authors.ToListAsync());
+            var authorList = await _authorService.GetAuthorList();
+            return View(authorList);
         }
 
         // GET: Authors/Details/5
@@ -96,7 +97,7 @@ namespace AudifyProject.Controllers
                 return NotFound();
             }
 
-            var author = await _context.Authors.FindAsync(id);
+            var author = await _authorService.Get(id??0L);
             if (author == null)
             {
                 return NotFound();
@@ -109,7 +110,9 @@ namespace AudifyProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Description,Remark,CreatedDate,CreatedBy,Status")] Author author)
+        [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
+        [RequestSizeLimit(int.MaxValue)]
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Description,Remark,Status,File")] AuthorFormViewModel author)
         {
             if (id != author.Id)
             {
@@ -120,8 +123,7 @@ namespace AudifyProject.Controllers
             {
                 try
                 {
-                    _context.Update(author);
-                    await _context.SaveChangesAsync();
+                    bool result = await _authorService.Update(author);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

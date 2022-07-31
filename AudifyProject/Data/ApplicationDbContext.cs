@@ -25,12 +25,22 @@ IdentityRoleClaim<string>, IdentityUserToken<string>>
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-           /* builder.Entity<Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole>(userRole =>
+            builder.Entity<ApplicationUserRole>(userRole =>
             {
                 userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
 
+                userRole.HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
+
+                userRole.HasOne(ur => ur.User)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
             });
-           */
+
+
         }
         public DbSet<Author> Authors { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -42,5 +52,9 @@ IdentityRoleClaim<string>, IdentityUserToken<string>>
         public virtual DbSet<AuthorFollower> AuthorFollowers { get; set; }
         public virtual DbSet<FavoriteItem> FavoriteItems { get; set; }
         public virtual DbSet<ReadingHistory> ReadingHistories { get; set; }
+        public virtual DbSet<AdsIncome> AdsIncomes { get; set; }
+        public virtual DbSet<ListenHistory> ListenHistories { get; set; }
+
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
     }
 }

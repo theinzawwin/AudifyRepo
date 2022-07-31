@@ -1,0 +1,47 @@
+﻿@model AudifyProject.ViewModels.ManagerRegisterViewModel
+@{
+    ViewData["Title"] = "CreateUser";
+}
+<section class="content-header">
+    <h2>အသုံးပြုသူအသစ်ဆောက်ခြင်း</h2>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">အခွန်ဆောင်ခြင်းပြုလုပ်ခြင်း</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <form method="post">
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="UserName">UserName</label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">စကားဝှက်</label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword">အတည်ပြုစကားဝှက်</label>
+                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                       
+
+                        <button type="submit" class="btn btn-primary">ထည့်မည်</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-primary pull-right" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</section>

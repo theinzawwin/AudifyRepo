@@ -13,6 +13,9 @@ namespace AudifyProject.ViewModels
         public string Remark { get; set; }
         public bool Status { get; set; }
         public String Profile { get; set; }
+        public int TotalAudio { get; set; }
         public List<ItemViewModel> Items { get; set; }
+        public bool IsFollow { get; set; }
+        public int FollowQty { get; set; }
     }
 }

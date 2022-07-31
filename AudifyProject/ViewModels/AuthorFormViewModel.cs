@@ -14,6 +14,7 @@ namespace AudifyProject.ViewModels
         public string Remark { get; set; }
         public bool Status { get; set; }
         public IFormFile File { get; set; }
+        public string Profile { get; set; }
         public string CreatedBy { get; set; }
     }
 }

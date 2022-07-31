@@ -21,5 +21,7 @@ namespace AudifyProject.Models
         public bool Status { get; set; }
         public String Profile { get; set; }
         public ICollection<Item> Items { get; set; }
+        public int FollowQty { get; set; }
+
     }
 }

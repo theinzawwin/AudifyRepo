@@ -25,9 +25,41 @@ namespace AudifyProject.Services
             _logger = logger;
         }
 
+        public async Task<bool> FollowAuthor(long id,string userId)
+        {
+            var followAuthor = _context.AuthorFollowers.Where(a=>a.AuthorId==id && a.UserId==userId).FirstOrDefault();
+            if (followAuthor != null)
+            {
+                followAuthor.Status = false;
+                _context.Update(followAuthor);
+                await _context.SaveChangesAsync();
+                
+            }
+            else
+            {
+                var newFollower = new AuthorFollower()
+                {
+                    AuthorId= id,
+                    UserId = userId,
+                    FollowDate= DateTime.Now,
+                    UpdatedDate= DateTime.Now,
+                    Status=true
+                };
+                _context.Add(newFollower);
+                await _context.SaveChangesAsync();
+            }
+            return true;
+        }
+
+        public async Task<AuthorFormViewModel> Get(long Id)
+        {
+            var author = await _context.Authors.FindAsync(Id);
+            return _mapper.Map<AuthorFormViewModel>(author);
+        }
+
         public async Task<List<AuthorViewModel>> GetAuthorList()
         {
-            var authorList = await _context.Authors.Where(a=>a.Status==true).ToListAsync();
+            var authorList = await _context.Authors.Include(a=>a.Items).Where(a=>a.Status==true).ToListAsync();
             
             return _mapper.Map<List<AuthorViewModel>>(authorList);
         }
@@ -42,6 +74,12 @@ namespace AudifyProject.Services
         {
             var author =await _context.Authors.Include(a => a.Items).Where(a => a.Id == Id).FirstOrDefaultAsync();
             return _mapper.Map<AuthorViewModel>(author);
+        }
+
+        public async Task<List<AuthorFollowViewModel>> GetFollowAuthorList(string userId)
+        {
+            var followAuthorList =await _context.AuthorFollowers.Include(a=>a.Author).Where(a => a.UserId == userId).ToListAsync();
+            return _mapper.Map<List<AuthorFollowViewModel>>(followAuthorList);
         }
 
         public async Task<List<AuthorViewModel>> GetTop5List()
@@ -86,6 +124,42 @@ namespace AudifyProject.Services
                 throw ex;
             }
             
+        }
+
+        public async Task<bool> Update(AuthorFormViewModel author)
+        {
+            try
+            {
+                var originAuthor = await _context.Authors.FindAsync(author.Id);
+                string ProfileName = originAuthor.Profile;
+                if (author.File != null)
+                {
+                    ProfileName = await _firebaseService.UploadFile(author.File);
+                }
+                originAuthor.Name = author.Name;
+                originAuthor.Description = author.Description;
+                originAuthor.Remark = author.Remark;
+                originAuthor.Profile = ProfileName;
+               
+                _context.Update(originAuthor);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AuthorExists(author.Id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+        private bool AuthorExists(long id)
+        {
+            return _context.Authors.Any(e => e.Id == id);
         }
     }
 }

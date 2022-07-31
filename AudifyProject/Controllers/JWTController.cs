@@ -44,7 +44,7 @@ namespace AudifyProject.Controllers
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Jti,user.Id),
                 };
 
                 foreach (var userRole in userRoles)
@@ -57,18 +57,24 @@ namespace AudifyProject.Controllers
                 var token = new JwtSecurityToken(
                     issuer: _configuration["JWT:ValidIssuer"],
                     audience: _configuration["JWT:ValidAudience"],
-                    expires: DateTime.Now.AddHours(3),
+                    expires: DateTime.Now.AddYears(1),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                var tokenResult = new
+                 TokenResult(){
+                    Name = user.UserName,
+                    Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    Expiration = token.ValidTo
+                };
+                var response = new BaseResponse<TokenResult>(tokenResult);
+                return Ok(response);
             }
-            return Unauthorized();
+            var noResponse = new BaseResponse<TokenResult>(new TokenResult());
+            noResponse.Result = false;
+            noResponse.ErrorMessage = "Invalid Login";
+            return Ok(noResponse);
+            
         }
     }
 }

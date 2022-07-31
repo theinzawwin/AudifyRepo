@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Storage;
 
 namespace AudifyProject
@@ -38,8 +39,12 @@ namespace AudifyProject
             services.AddScoped<IFirebaseService, FirebaseService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUserService, UserService>();
-            string connetionString = Configuration.GetConnectionString("MysqlConnection");
-            services.AddDbContextPool<ApplicationDbContext>(options =>
+            services.AddScoped<IReadHistoryService, ReadHistoryService>();
+            string connetionString = Configuration.GetConnectionString("SqlServer");
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connetionString));
+            /* services.AddDbContextPool<ApplicationDbContext>(options =>
             {
 
                 //options.UseLoggerFactory(MyLoggerFactory);
@@ -52,35 +57,12 @@ namespace AudifyProject
                             maxRetryCount: 10,
                             maxRetryDelay: TimeSpan.FromSeconds(30),
                             errorNumbersToAdd: null);
+                         builder.ServerVersion(new Version(5, 7), ServerType.MySql);
                      }
                    );
             }, 20);
             
-
-            /* services.AddDbContextPool<ApplicationDbContext>(options =>
-             {
-                 //options.UseLoggerFactory(MyLoggerFactory);
-                 options.UseMySql(
-                     connectionString: connetionString,
-                     mySqlOptionsAction: builder =>
-                     {
-                         builder.EnableRetryOnFailure(
-                             maxRetryCount: 10,
-                             maxRetryDelay: TimeSpan.FromSeconds(30),
-                             errorNumbersToAdd: null);
-                     },
-                     serverVersion: ServerVersion.AutoDetect(connetionString));
-             }, 20);
-            /* services.AddDbContext<ApplicationDbContext>(options =>
-
-
-                    options.UseMySql(Configuration.GetConnectionString("MysqlConnection"), mysql =>
-                    {
-                        mysql.EnableRetryOnFailure();
-                    })
-
-                    );
-             */
+            */
             services.Configure<FormOptions>(options =>
             {
                 options.ValueLengthLimit = int.MaxValue;

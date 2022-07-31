@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AudifyProject.Models.ApplicationUser>
+
+
+
+<section class="content-header">
+    <h1>App User List</h1>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Manager User List</h3> <a class="btn btn-success pull-right" asp-action="CreateUser">Create New</a>
+        </div>
+        <div class="box-body">
+
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive dataTable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>
+                                Name
+                            </th>
+
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@i</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+
+                            <td>
+                                <a asp-action="UserChangePassword" asp-route-userName="@item.UserName">ပြုပြင်မည်</a>
+                            </td>
+
+                        </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

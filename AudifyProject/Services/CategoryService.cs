@@ -31,7 +31,7 @@ namespace AudifyProject.Services
 
         public async Task<List<CategoryViewModel>> GetCategoryListWithTop5Items()
         {
-            var allCategories = await _context.Categories.Include(c => c.Items).Where(c => c.Status == true && c.Items.Count>0).ToListAsync();
+            var allCategories = await _context.Categories.Include(c => c.Items).ThenInclude(i=>i.Author).Where(c => c.Status == true && c.Items.Count>0).ToListAsync();
             return _mapper.Map<List<CategoryViewModel>>(allCategories);
         }
     }

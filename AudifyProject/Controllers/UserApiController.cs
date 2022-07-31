@@ -29,15 +29,19 @@ namespace AudifyProject.Controllers
         public async Task<IActionResult> Register(RegisterViewModel registerVM)
         {
             bool result = false;
+            string ErrorMessage = string.Empty;
             try
             {
                 result=await _userService.Register(registerVM);
             }catch(Exception e)
             {
                 result = false;
+                ErrorMessage = e.Message;
             }
-
-            return Ok(true);
+            var response = new BaseResponse<RegisterViewModel>(registerVM);
+            response.Result = result;
+            response.ErrorMessage = ErrorMessage;
+            return Ok(response);
         }
 
         // GET api/<UserApiController>/5

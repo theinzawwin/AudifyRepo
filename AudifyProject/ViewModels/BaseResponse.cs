@@ -11,7 +11,12 @@ namespace AudifyProject.ViewModels
         public string ErrorMessage { get; set; }
         public int StatusCode { get; set; }
         public T Data { get; set; }
-        public BaseResponse() { }
+        public BaseResponse() {
+            Result = true;
+            ErrorMessage = string.Empty;
+            StatusCode = 200;
+            
+        }
         public BaseResponse(T data)
         {
             Result = true;

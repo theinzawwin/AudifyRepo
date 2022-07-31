@@ -33,5 +33,8 @@ namespace AudifyProject.Models
         public List<Chapter> Chapters { get; set; }
         public string CoverFile { get; set; }
         public int CoverType { get; set; }
+        public int ReadQty { get; set; }
+        public int TotalFavoriteQty { get; set; }
+        
     }
 }

@@ -25,5 +25,9 @@ namespace AudifyProject.ViewModels
         public string CoverFileName { get; set; }
         public string CreatedBy { get; set; }
         public List<ChapterViewModel> Chapters { get; set; }
+        public int CoverType { get; set; }
+        public bool IsFavorite { get; set; }
+        public int ReadQty { get; set; }
+        public int TotalFavoriteQty { get; set; }
     }
 }

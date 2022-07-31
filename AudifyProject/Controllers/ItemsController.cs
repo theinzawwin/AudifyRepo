@@ -106,13 +106,13 @@ namespace AudifyProject.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Items.FindAsync(id);
+            var item = await _itemService.GetItemEditViewModel(id??0L);
             if (item == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", item.AuthorId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", item.CategoryId);
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return View(item);
         }
 
@@ -121,7 +121,9 @@ namespace AudifyProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Description,TotalReview,TotalPage,Duration,CategoryId,AuthorId,HasChapter,Status,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,CoverFile,CoverType")] Item item)
+        [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
+        [RequestSizeLimit(int.MaxValue)]
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Description,TotalReview,TotalPage,Duration,CategoryId,AuthorId,HasChapter,Status,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,CoverFile,CoverType")] ItemViewModel item)
         {
             if (id != item.Id)
             {
@@ -132,8 +134,7 @@ namespace AudifyProject.Controllers
             {
                 try
                 {
-                    _context.Update(item);
-                    await _context.SaveChangesAsync();
+                    bool result =  await  _itemService.Update(item);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
